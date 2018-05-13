@@ -67,3 +67,11 @@ module.exports.edit = (req, res, next) => {
       }
     });
 }
+
+module.exports.destroy = (req, res, next) => {
+   const id = req.params.id;
+
+   User.findByIdAndRemove(id)
+   .then(user => res.status(204).json())
+   .catch(error => next(new ApiError(error.message, 404)));
+};
