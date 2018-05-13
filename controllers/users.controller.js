@@ -11,15 +11,21 @@ module.exports.create = (req, res, next) => {
       } else {
 
         let address;
+        let bdate;
         if(req.body.address !== undefined) {
           address = new Address(req.body.address);
         } else {
           address = new Address( {street: "", state: "", city: "", country: "", zip: ""} );
         }
 
-        let { name, email, birthDate } = req.body;
-        let user = new User({ name, email, birthDate });
+        if(req.body.birthDate !== undefined) {
+          bdate = req.body.birthDate;
+        } else bdate = "";
+
+        let { name, email } = req.body;
+        let user = new User({ name, email });
         user.address = address._id;
+        user.birthDate = bdate;
 
         user.save()
           .then(() => {
@@ -72,12 +78,16 @@ module.exports.edit = (req, res, next) => {
   const id = req.params.id;
 
   let address;
-  if(req.body.address !== null) {
+  if(req.body.address !== undefined) {
     address = req.body.address;
   }
 
-  const { name, email, birthDate } = req.body;
-  let updates = { name, email, birthDate };
+  const { name, email } = req.body;
+  let updates = { name, email };
+
+  if(req.body.birthDate !== undefined) {
+    updates.birthDate = req.body.birthDate;
+  }
 
   User.findByIdAndUpdate(id, { $set: updates }, { new: true })
     .then( user => {
