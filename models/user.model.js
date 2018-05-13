@@ -26,8 +26,12 @@ const userSchema = new mongoose.Schema({
   toJSON: {
     transform: (doc, ret) => {
       ret.id = doc._id;
+      delete ret.__v;
       delete ret._id;
       return ret;
     }
   }
 });
+
+const User = mongoose.model('User', userSchema);
+module.exports = User;

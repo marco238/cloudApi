@@ -23,6 +23,7 @@ const addressSchema = new mongoose.Schema({
   toJSON: {
     transform: (doc, ret) => {
       ret.id = doc._id;
+      delete ret.__v;
       delete ret._id;
       return ret;
     }
