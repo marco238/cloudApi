@@ -37,3 +37,11 @@ module.exports.get = (req, res, next) => {
     })
     .catch(error => next(error));
 }
+
+module.exports.list = (req, res, next) => {
+  User.find()
+    .then(users => {
+      res.json(users);
+    })
+    .catch(error => next(error));
+}
