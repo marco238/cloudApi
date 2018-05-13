@@ -23,3 +23,17 @@ module.exports.create = (req, res, next) => {
       }
     }).catch(error => next(new ApiError('User already registered', 400)));
 }
+
+module.exports.get = (req, res, next) => {
+  const id = req.params.id
+
+  User.findById(id)
+    .then( user => {
+      if (user) {
+        res.json(user);
+      } else {
+        next(new ApiError(`User not found`, 404));
+      }
+    })
+    .catch(error => next(error));
+}
