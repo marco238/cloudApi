@@ -6,6 +6,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+require('dotenv').config();
 require('./configs/db.config');
 
 const usersRouter = require('./routes/users.router');

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const DB_NAME = 'cloudApi';
-const MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost/${DB_NAME}`;
+const MONGODB_URI = process.env.MLAB_URL || `mongodb://localhost/${DB_NAME}`;
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI)
