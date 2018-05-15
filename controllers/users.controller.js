@@ -56,6 +56,7 @@ module.exports.get = (req, res, next) => {
   const id = req.params.id
 
   User.findById(id)
+    .populate('address')
     .then( user => {
       if (user) {
         res.json(user);
@@ -68,6 +69,7 @@ module.exports.get = (req, res, next) => {
 
 module.exports.list = (req, res, next) => {
   User.find()
+    .populate('address')
     .then(users => {
       res.json(users);
     })
